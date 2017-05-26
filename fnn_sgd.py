@@ -119,7 +119,7 @@ class Network:
 
 
 
-    def TestNetwork(self, Data, testSize, erTolerance):
+    def TestNetwork(self, Data, testSize):
         Input = np.zeros((1, self.Top[0])) # temp hold input
         Desired = np.zeros((1, self.Top[2]))
         nOutput = np.zeros((1, self.Top[2]))
@@ -183,7 +183,6 @@ class Network:
             if rmse < bestrmse:
                bestrmse = rmse
                self.saveKnowledge()
-               (x ) = self.TestNetwork(self.TrainData, self.NumSamples, 0.2)
 
 
             Er = np.append(Er, rmse)
@@ -230,8 +229,6 @@ def main():
 
         MinCriteria = 95 #stop when learn 95 percent
 
-        trainTolerance = 0.2 # [eg 0.15 would be seen as 0] [ 0.81 would be seen as 1]
-        testTolerance = 0.4
 
         useStocasticGD = 1 # 0 for vanilla BP. 1 for Stocastic BP
         useVanilla = 1 # 1 for Vanilla Gradient Descent, 0 for Gradient Descent with momentum (either regular momentum or nesterov momen)
@@ -252,7 +249,7 @@ def main():
                  (erEp,  trainRMSE[run] ,  Epochs[run]) = fnnSGD.BP_GD(learnRate, mRate, useNestmomen,  useStocasticGD, useVanilla)
 
                  Time[run]  =time.time()-start_time
-                 (testRMSE[run] ) = fnnSGD.TestNetwork(TestData, TestSize, testTolerance)
+                 (testRMSE[run] ) = fnnSGD.TestNetwork(TestData, TestSize )
 
 
         print trainRMSE
