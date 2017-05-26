@@ -11,8 +11,6 @@
 
 #!/usr/bin/python
 
-# ref: http://iamtrask.github.io/2015/07/12/basic-python-network/
-
 
 #Sigmoid units used in hidden and output layer. gradient descent and stocastic gradient descent functions implemented with momentum. Note:
 #  Classical momentum:
@@ -157,9 +155,8 @@ class Network:
         Desired = np.zeros((1, self.Top[2]))
         Er = []#np.zeros((1, self.Max))
         epoch = 0
-        bestrmse = 100
-        bestTrain = 0
-        while  epoch < self.Max and bestTrain < self.minPerf :
+        bestrmse = 1
+        while  epoch < self.Max and bestrmse> self.minPerf :
 
             sse = 0
             for s in xrange(0, self.NumSamples):
@@ -198,7 +195,7 @@ class Network:
 def main():
 
 
-        problem = 1 #  Lazer or Sunspot
+        problem = 2 #  Lazer or Sunspot
 
         Hidden = 5
         Input = 4  #
@@ -227,7 +224,7 @@ def main():
         Topo = [Input, Hidden, Output]
         MaxRun = 10 # number of experimental runs
 
-        MinCriteria = 95 #stop when learn 95 percent
+        MinCriteria = 0.005 #stop when RMSE reaches MinCriteria ( problem dependent)
 
 
         useStocasticGD = 1 # 0 for vanilla BP. 1 for Stocastic BP
